@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <script src="https://unpkg.com/@popperjs/core@2"></script>
+        <script src="https://unpkg.com/tippy.js@6"></script>
+        <title>First Isomorphism Theorem</title>
+    </head>
+
+    <style>
+        .container {
+            margin-top: 3rem;
+            width: 50rem;
+            height: 20rem;
+        }
+        .svg-container {
+            position: relative;
+        }
+        svg {
+            display: block;
+        }
+
+        #group-top-left{
+            position: absolute;
+            top: 60px;
+            left: 35px;
+        }
+        #group-bottom-left {
+            position: absolute;
+            top: 200px;
+            left: 30px;
+        }
+        #group-bottom-right {
+            position: absolute;
+            top: 200px;
+            left: 240px;
+        }
+        #group-top-right {
+            position: absolute;
+            top: 60px;
+            left: 265px;
+        }
+
+        #svg-left {
+            position: absolute;
+            top: 100px;
+            left: 50px;
+        }
+        #homomorphism-left {
+            position: absolute;
+            top: 125px;
+            left: 30px;
+            display: inline;
+        }
+        #homomorphism-left:hover {
+            cursor:help;
+        }
+        #homomorphism-bottom:hover {
+            cursor:help;
+        }
+        #homomorphism-right:hover {
+            cursor:help;
+        }
+        #homomorphism-top:hover {
+            cursor:help;
+        }
+
+        #svg-top {
+            position: absolute;
+            top: 65px;
+            left: 95px;
+        }
+        #homomorphism-top {
+            position: absolute;
+            top: 40px;
+            left: 150px;
+            display: inline;
+        }
+
+        #svg-bottom {
+            position: absolute;
+            top: 200px;
+            left: 95px;
+        }
+        #homomorphism-bottom {
+            position: absolute;
+            top: 220px;
+            left: 150px;
+        }
+
+
+        #svg-right {
+            position: absolute;
+            top: 100px;
+            left: 270px;
+        }
+        #homomorphism-right {
+            position: absolute;
+            top: 125px;
+            left: 300px;
+        }
+
+
+        .form-control-small {
+            max-width: 50px;
+            display: inline-block;
+        }
+        .MathJax {
+            /* forgive me lord for I have sinned */
+            font-size: 1.9em !important;
+        }
+    </style>
+
+
+
+    <body>
+        <div class="container mx-auto">
+            <h3 class="text-center pb-3">
+                The First Isomorphism Theorem: A Visualization
+            </h3>
+            <div>
+                <p>
+                    Visualize a homomorphism between \(\mathbb{Z}_n\) and itself by selecting a value for n, and then selecting a specific homomorphism \(\phi\) by choosing a value for \(\phi(1)\).
+                </p>
+                <p>
+                    You can hover over the symbols for each of the four homomorphisms on the top left, right, and bottom to see more information about them.
+                </p>
+            </div>
+            <div class="pt-2">
+                \(\mathbb{Z}\)_ <input class="form-control form-control-small" id="n-input">
+                <div class="pe-5" style="display: inline"></div>
+                \(\phi(1) = \) <input class="form-control form-control-small" id="phi-n-input">
+            </div>
+            <div class="svg-container">
+                <div class="p-5"></div>
+
+                <div id="group-top-left">
+                    \(\mathbb{Z}_n\)
+                </div>
+                <div id="group-bottom-left">
+                    \(\frac{\mathbb{Z}_n}{\text{ker}\phi}\)
+                </div>
+                <div id="group-bottom-right">
+                    \(\phi(\mathbb{Z}_n)\)
+                </div>
+                <div id="group-top-right">
+                    \(\mathbb{Z}_n\)
+                </div>
+
+                <svg id="svg-left" xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+                    <marker id="triangle" viewBox="0 0 10 10" refX="0" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z"/>
+                    </marker>
+                    <line x1="10" y1="0" x2="10" y2="80" marker-end="url(#triangle)" stroke="black" stroke-width="3"/>
+                </svg>
+                <div id="homomorphism-left">
+                    \(\pi\)
+                </div>
+
+                <svg id="svg-top" xmlns="http://www.w3.org/2000/svg" width="130" height="100">
+                    <marker id="triangle" viewBox="0 0 10 10" refX="0" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z"/>
+                    </marker>
+                    <line x1="0" y1="10" x2="120" y2="10" marker-end="url(#triangle)" stroke="black" stroke-width="3"/>
+                </svg>
+                <div id="homomorphism-top">
+                    \(\phi\)
+                </div>
+
+                <svg id="svg-bottom" xmlns="http://www.w3.org/2000/svg" width="130" height="100">
+                    <marker id="triangle" viewBox="0 0 10 10" refX="0" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z"/>
+                    </marker>
+                    <line x1="0" y1="10" x2="120" y2="10" marker-end="url(#triangle)" stroke="black" stroke-width="3"/>
+                </svg>
+                <div id="homomorphism-bottom">
+                    \(\psi\)
+                </div>
+
+                <svg id="svg-right" xmlns="http://www.w3.org/2000/svg" width="130" height="100">
+                    <marker id="triangle" viewBox="0 0 10 10" refX="0" refY="5" markerUnits="strokeWidth" markerWidth="4" markerHeight="3" orient="auto">
+                    <path d="M 0 0 L 10 5 L 0 10 z"/>
+                    </marker>
+                    <line x1="10" y1="90" x2="10" y2="10" marker-end="url(#triangle)" stroke="black" stroke-width="3"/>
+                </svg>
+                <div id="homomorphism-right">
+                    \(\text{inc}\)
+                </div>
+            </div>
+
+            <div class="p-5"></div>
+            <div class="p-5"></div>
+
+            <div id="group-top-left-contents">
+                \(\mathbb{Z}_n\) =
+            </div>
+            <div id="group-ker-phi-contents" class="pt-4">
+                \(\text{ker}\phi\) =
+            </div>
+            <div id="group-bottom-left-contents" class="pt-4">
+                \(\frac{\mathbb{Z}_n}{\text{ker}\phi}\) =
+            </div>
+            <div id="group-bottom-right-contents" class="pt-4">
+                \(\phi(\mathbb{Z}_n)\) =
+            </div>
+
+        </div>
+    </body>
+
+    <script>
+        var nInput = document.getElementById('n-input');
+        var phiInput = document.getElementById('phi-n-input');
+        let topLeft = document.getElementById("group-top-left");
+        let topRight = document.getElementById("group-top-right");
+        let bottomLeft = document.getElementById("group-bottom-left");
+        let bottomRight = document.getElementById("group-bottom-right");
+
+        nInput.addEventListener('input', function() {
+            refresh()
+        });
+        phiInput.addEventListener('input', function() {
+            refresh()
+        });
+
+        function refresh() {
+            let val = nInput.value;
+            let phiVal = phiInput.value;
+
+            if (val == "") {
+                val = "n"
+            }
+            topLeft.innerHTML = `\\(\\mathbb{Z}_{${val}}\\)`
+            topRight.innerHTML = `\\(\\mathbb{Z}_{${val}}\\)`
+            bottomLeft.innerHTML = `\\(\\frac{\\mathbb{Z}_{${val}}}{\\text{ker}\\phi}\\)`
+            bottomRight.innerHTML = `\\(\\phi({\\mathbb{Z}_{${val}}})\\)`
+
+            let intVal = parseInt(val);
+            let intPhiVal = parseInt(phiVal);
+
+            if (!isNaN(intVal) && !isNaN(intPhiVal)) {
+
+                let G = Array.from(Array(intVal).keys());
+                let kerPhi = G.filter(g => (g * intPhiVal) % intVal == 0);
+                let cosets_ = G.map(x => kerPhi.map(g => (x + g) % intVal));
+                let cosets = []
+                cosets_.forEach(function(coset_) {
+                    let add = true;
+                    // two cosets are equal if they share any element
+                    cosets.forEach(function(coset) {
+                        // don't add if `coset_` shares any element with any coset already in `cosets`
+                        if (coset_.filter(v => coset.includes(v)).length > 0) {
+                            add = false;
+                        }
+                    })
+                    if (add) {
+                        cosets.push(coset_);
+                    }
+                })
+                let cosetStr = ""
+                cosets.forEach(x => cosetStr += "{" + x.join() + "}, ")
+
+                let phiZn = G.map(g => (g * intPhiVal) % intVal);
+                // filter out duplicates
+                phiZn = phiZn.filter(function (value, index, array) {
+                    return array.indexOf(value) === index;
+                });
+
+                document.getElementById("group-top-left-contents").innerHTML = `\\(\\mathbb{Z}_{${val}}\\) = {${G}}`
+                document.getElementById("group-ker-phi-contents").innerHTML = `\\(\\text{ker}\\phi\\) = {${kerPhi}}`
+                document.getElementById("group-bottom-left-contents").innerHTML = `\\(\\frac{\\mathbb{Z}_{${val}}}{\\text{ker}\\phi}\\) = {${cosetStr}}`
+                document.getElementById("group-bottom-right-contents").innerHTML = `\\(\\phi(\\mathbb{Z}_{${val}})\\) = {${phiZn}}`
+            } else if(!isNaN(intVal)) {
+                document.getElementById("group-top-left-contents").innerHTML = `\\(\\mathbb{Z}_{${intVal}}\\) = `
+                document.getElementById("group-ker-phi-contents").innerHTML = `\\(\\text{ker}\\phi\\) = `
+                document.getElementById("group-bottom-left-contents").innerHTML = `\\(\\frac{\\mathbb{Z}_{${intVal}}}{\\text{ker}\\phi}\\) = `
+                document.getElementById("group-bottom-right-contents").innerHTML = `\\(\\phi(\\mathbb{Z}_{${intVal}})\\) = `
+            } else {
+                document.getElementById("group-top-left-contents").innerHTML = `\\(\\mathbb{Z}_n\\) = `
+                document.getElementById("group-ker-phi-contents").innerHTML = `\\(\\text{ker}\\phi\\) = `
+                document.getElementById("group-bottom-left-contents").innerHTML = `\\(\\frac{\\mathbb{Z}_n}{\\text{ker}\\phi}\\) = `
+                document.getElementById("group-bottom-right-contents").innerHTML = `\\(\\phi(\\mathbb{Z}_n)\\) = `
+            }
+
+            MathJax.typeset();
+        }
+
+        tippy('#homomorphism-left', {
+            content: '\\(\\pi : \\mathbb{Z}_n \\to \\frac{\\mathbb{Z}_n}{\\text{ker}\\phi}\\) is the canonical projection defined by \\(\\pi(a) = a\\text{ker}(\\phi)\\). \\(\\pi\\) is a surjective homomorphism, but not necessarily injective.',
+            onMount(instance) {
+                MathJax.typeset();
+            }
+        });
+
+        tippy('#homomorphism-bottom', {
+            content: '\\(\\psi : \\frac{\\mathbb{Z}_n}{\\text{ker}\\phi} \\to \\phi(\\mathbb{Z}_n)\\) is the isomorphism guaranteed to exist by the first isomorphism theorem.',
+            onMount(instance) {
+                MathJax.typeset();
+            }
+        });
+
+        tippy('#homomorphism-right', {
+            content: '\\(\\text{inc} : \\phi(\\mathbb{Z}_n) \\to \\mathbb{Z}_n\\) is the inclusion (or identity) map defined by \\(\\text{inc}(a) = a\\). It is an injective homomorphism, but not necessarily surjective.',
+            onMount(instance) {
+                MathJax.typeset();
+            }
+        });
+
+        tippy('#homomorphism-top', {
+            content: '\\(\\phi : \\mathbb{Z}_n \\to \\mathbb{Z}_n\\) is the homomorphism uniquely determined by the value of \\(\\phi(1)\\).',
+            onMount(instance) {
+                MathJax.typeset();
+            }
+        });
+    </script>
+</html>
