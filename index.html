@@ -291,28 +291,32 @@
             content: '\\(\\pi : \\mathbb{Z}_n \\to \\frac{\\mathbb{Z}_n}{\\text{ker}\\phi}\\) is the canonical projection defined by \\(\\pi(a) = a\\text{ker}(\\phi)\\). \\(\\pi\\) is a surjective homomorphism, but not necessarily injective.',
             onMount(instance) {
                 MathJax.typeset();
-            }
+            },
+            duration: 0
         });
 
         tippy('#homomorphism-bottom', {
             content: '\\(\\psi : \\frac{\\mathbb{Z}_n}{\\text{ker}\\phi} \\to \\phi(\\mathbb{Z}_n)\\) is the isomorphism guaranteed to exist by the first isomorphism theorem.',
             onMount(instance) {
                 MathJax.typeset();
-            }
+            },
+            duration: 0
         });
 
         tippy('#homomorphism-right', {
             content: '\\(\\text{inc} : \\phi(\\mathbb{Z}_n) \\to \\mathbb{Z}_n\\) is the inclusion (or identity) map defined by \\(\\text{inc}(a) = a\\). It is an injective homomorphism, but not necessarily surjective.',
             onMount(instance) {
                 MathJax.typeset();
-            }
+            },
+            duration: 0
         });
 
         tippy('#homomorphism-top', {
             content: '\\(\\phi : \\mathbb{Z}_n \\to \\mathbb{Z}_n\\) is the homomorphism uniquely determined by the value of \\(\\phi(1)\\).',
             onMount(instance) {
                 MathJax.typeset();
-            }
+            },
+            duration: 0
         });
     </script>
 </html>
