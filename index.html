@@ -217,90 +217,102 @@
     <script>
         var nInput = document.getElementById('n-input');
         var phiInput = document.getElementById('phi-n-input');
-        let topLeft = document.getElementById("group-top-left");
-        let topRight = document.getElementById("group-top-right");
-        let bottomLeft = document.getElementById("group-bottom-left");
-        let bottomRight = document.getElementById("group-bottom-right");
+        var topLeft = document.getElementById("group-top-left");
+        var topRight = document.getElementById("group-top-right");
+        var bottomLeft = document.getElementById("group-bottom-left");
+        var bottomRight = document.getElementById("group-bottom-right");
 
-        nInput.addEventListener('input', function() {
-            refresh()
+        nInput.addEventListener('input', function () {
+            refresh();
         });
-        phiInput.addEventListener('input', function() {
-            refresh()
+        phiInput.addEventListener('input', function () {
+            refresh();
         });
 
         function refresh() {
-            let val = nInput.value;
-            let phiVal = phiInput.value;
+            var val = nInput.value;
+            var phiVal = phiInput.value;
 
-            let intVal = parseInt(val);
-            let intPhiVal = parseInt(phiVal);
-            let errorDiv = document.getElementById("validation-error-message")
+            var intVal = parseInt(val);
+            var intPhiVal = parseInt(phiVal);
+            var errorDiv = document.getElementById("validation-error-message");
 
-            if ((isNaN(intVal) && val !== "") || intVal < 0) {
-                errorDiv.innerHTML = "Please enter a valid integer for Z_n"
-                errorDiv.style.display = "unset"
-            } else if ((!isNaN(intPhiVal) && (intPhiVal > intVal || intPhiVal < 0)) || (isNaN(intPhiVal) && phiVal !== "")) {
-                errorDiv.innerHTML = "Please enter a valid homomorphism"
-                errorDiv.style.display = "unset"
+            if (isNaN(intVal) && val !== "" || intVal < 0) {
+                errorDiv.innerHTML = "Please enter a valid integer for Z_n";
+                errorDiv.style.display = "unset";
+            } else if (!isNaN(intPhiVal) && (intPhiVal > intVal || intPhiVal < 0) || isNaN(intPhiVal) && phiVal !== "") {
+                errorDiv.innerHTML = "Please enter a valid homomorphism";
+                errorDiv.style.display = "unset";
             } else {
-                document.getElementById("validation-error-message").innerHTML = ""
-                errorDiv.style.display = "none"
+                document.getElementById("validation-error-message").innerHTML = "";
+                errorDiv.style.display = "none";
             }
 
             if (val == "") {
-                val = "n"
+                val = "n";
             }
-            topLeft.innerHTML = "\\(\\mathbb{Z}_{" + val + "}\\)"
-            topRight.innerHTML = "\\(\\mathbb{Z}_{" + val + "}\\)"
-            bottomLeft.innerHTML = "\\(\\frac{\\mathbb{Z}_{" + val + "}}{\\text{ker}\\phi}\\)"
-            bottomRight.innerHTML = "\\(\\phi({\\mathbb{Z}_{" + val + "}})\\)"
-
-
+            topLeft.innerHTML = "\\(\\mathbb{Z}_{" + val + "}\\)";
+            topRight.innerHTML = "\\(\\mathbb{Z}_{" + val + "}\\)";
+            bottomLeft.innerHTML = "\\(\\frac{\\mathbb{Z}_{" + val + "}}{\\text{ker}\\phi}\\)";
+            bottomRight.innerHTML = "\\(\\phi({\\mathbb{Z}_{" + val + "}})\\)";
 
             if (!isNaN(intVal) && !isNaN(intPhiVal)) {
+                (function () {
 
-                let G = Array.from(Array(intVal).keys());
-                let kerPhi = G.filter(g => (g * intPhiVal) % intVal == 0);
-                let cosets_ = G.map(x => kerPhi.map(g => (x + g) % intVal));
-                let cosets = []
-                cosets_.forEach(function(coset_) {
-                    let add = true;
-                    // two cosets are equal if they share any element
-                    cosets.forEach(function(coset) {
-                        // don't add if "coset_" shares any element with any coset already in "cosets"
-                        if (coset_.filter(v => coset.includes(v)).length > 0) {
-                            add = false;
+                    var G = Array.from(Array(intVal).keys());
+                    var kerPhi = G.filter(function (g) {
+                        return g * intPhiVal % intVal == 0;
+                    });
+                    var cosets_ = G.map(function (x) {
+                        return kerPhi.map(function (g) {
+                            return (x + g) % intVal;
+                        });
+                    });
+                    var cosets = [];
+                    cosets_.forEach(function (coset_) {
+                        var add = true;
+                        // two cosets are equal if they share any element
+                        cosets.forEach(function (coset) {
+                            // don't add if "coset_" shares any element with any coset already in "cosets"
+                            if (coset_.filter(function (v) {
+                                return coset.includes(v);
+                            }).length > 0) {
+                                add = false;
+                            }
+                        });
+                        if (add) {
+                            cosets.push(coset_);
                         }
-                    })
-                    if (add) {
-                        cosets.push(coset_);
-                    }
-                })
-                let cosetStr = ""
-                cosets.forEach(x => cosetStr += "{" + x.join() + "}, ")
-                cosetStr = cosetStr.substring(0, cosetStr.length - 2);
+                    });
+                    var cosetStr = "";
+                    cosets.forEach(function (x) {
+                        return cosetStr += "{" + x.join() + "}, ";
+                    });
+                    cosetStr = cosetStr.substring(0, cosetStr.length - 2);
 
-                let phiZn = G.map(g => (g * intPhiVal) % intVal);
-                // filter out duplicates
-                phiZn = phiZn.filter(function (value, index, array) {
-                    return array.indexOf(value) === index;
-                });
+                    var phiZn = G.map(function (g) {
+                        return g * intPhiVal % intVal;
+                    });
+                    // filter out duplicates
+                    phiZn = phiZn.filter(function (value, index, array) {
+                        return array.indexOf(value) === index;
+                    });
 
-                document.getElementById("group-top-left-contents").innerHTML = "\\(\\mathbb{Z}_{" + val + "}\\) = {" + G + "}"
-                document.getElementById("group-ker-phi-contents").innerHTML = "\\(\\text{ker}\\phi\\) = {" + kerPhi + "}"
-                document.getElementById("group-bottom-left-contents").innerHTML = "\\(\\frac{\\mathbb{Z}_{" + val + "}}{\\text{ker}\\phi}\\) = {" + cosetStr + "}"
-                document.getElementById("group-bottom-right-contents").innerHTML = "\\(\\phi(\\mathbb{Z}_{" + val + "})\\) = {" + phiZn + "}"
-            } else if(!isNaN(intVal)) {
-                document.getElementById("group-top-left-contents").innerHTML = "\\(\\mathbb{Z}_{" + intVal + "}\\) = "
-                document.getElementById("group-ker-phi-contents").innerHTML = "\\(\\text{ker}\\phi\\) = "
-                document.getElementById("group-bottom-left-contents").innerHTML = "\\(\\frac{\\mathbb{Z}_{" + intVal + "}}{\\text{ker}\\phi}\\) = "
-                document.getElementById("group-bottom-right-contents").innerHTML = "\\(\\phi(\\mathbb{Z}_{" + intVal + "})\\) = "
+                    document.getElementById("group-top-left-contents").innerHTML = "\\(\\mathbb{Z}_{" + val + "}\\) = {" + G + "}";
+                    document.getElementById("group-ker-phi-contents").innerHTML = "\\(\\text{ker}\\phi\\) = {" + kerPhi + "}";
+                    document.getElementById("group-bottom-left-contents").innerHTML = "\\(\\frac{\\mathbb{Z}_{" + val + "}}{\\text{ker}\\phi}\\) = {" + cosetStr + "}";
+                    document.getElementById("group-bottom-right-contents").innerHTML = "\\(\\phi(\\mathbb{Z}_{" + val + "})\\) = {" + phiZn + "}";
+                })();
+            } else if (!isNaN(intVal)) {
+                document.getElementById("group-top-left-contents").innerHTML = "\\(\\mathbb{Z}_{" + intVal + "}\\) = ";
+                document.getElementById("group-ker-phi-contents").innerHTML = "\\(\\text{ker}\\phi\\) = ";
+                document.getElementById("group-bottom-left-contents").innerHTML = "\\(\\frac{\\mathbb{Z}_{" + intVal + "}}{\\text{ker}\\phi}\\) = ";
+                document.getElementById("group-bottom-right-contents").innerHTML = "\\(\\phi(\\mathbb{Z}_{" + intVal + "})\\) = ";
             } else {
-                document.getElementById("group-top-left-contents").innerHTML = "\\(\\mathbb{Z}_n\\) = "
-                document.getElementById("group-ker-phi-contents").innerHTML = "\\(\\text{ker}\\phi\\) = "
-                document.getElementById("group-bottom-left-contents").innerHTML = "\\(\\frac{\\mathbb{Z}_n}{\\text{ker}\\phi}\\) = "
-                document.getElementById("group-bottom-right-contents").innerHTML = "\\(\\phi(\\mathbb{Z}_n)\\) = "
+                document.getElementById("group-top-left-contents").innerHTML = "\\(\\mathbb{Z}_n\\) = ";
+                document.getElementById("group-ker-phi-contents").innerHTML = "\\(\\text{ker}\\phi\\) = ";
+                document.getElementById("group-bottom-left-contents").innerHTML = "\\(\\frac{\\mathbb{Z}_n}{\\text{ker}\\phi}\\) = ";
+                document.getElementById("group-bottom-right-contents").innerHTML = "\\(\\phi(\\mathbb{Z}_n)\\) = ";
             }
 
             MathJax.typeset();
@@ -308,33 +320,37 @@
 
         tippy('#homomorphism-left', {
             content: '\\(\\pi : \\mathbb{Z}_n \\to \\frac{\\mathbb{Z}_n}{\\text{ker}\\phi}\\) is the canonical projection defined by \\(\\pi(a) = a\\text{ker}(\\phi)\\). \\(\\pi\\) is a surjective homomorphism, but not necessarily injective.',
-            onMount(instance) {
+            onMount: function onMount(instance) {
                 MathJax.typeset();
             },
+
             duration: 0
         });
 
         tippy('#homomorphism-bottom', {
             content: '\\(\\psi : \\frac{\\mathbb{Z}_n}{\\text{ker}\\phi} \\to \\phi(\\mathbb{Z}_n)\\) is the isomorphism guaranteed to exist by the first isomorphism theorem.',
-            onMount(instance) {
+            onMount: function onMount(instance) {
                 MathJax.typeset();
             },
+
             duration: 0
         });
 
         tippy('#homomorphism-right', {
             content: '\\(\\text{inc} : \\phi(\\mathbb{Z}_n) \\to \\mathbb{Z}_n\\) is the inclusion (or identity) map defined by \\(\\text{inc}(a) = a\\). It is an injective homomorphism, but not necessarily surjective.',
-            onMount(instance) {
+            onMount: function onMount(instance) {
                 MathJax.typeset();
             },
+
             duration: 0
         });
 
         tippy('#homomorphism-top', {
             content: '\\(\\phi : \\mathbb{Z}_n \\to \\mathbb{Z}_n\\) is the homomorphism uniquely determined by the value of \\(\\phi(1)\\).',
-            onMount(instance) {
+            onMount: function onMount(instance) {
                 MathJax.typeset();
             },
+
             duration: 0
         });
     </script>
