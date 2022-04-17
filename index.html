@@ -13,7 +13,7 @@
     <style>
         .container {
             margin-top: 3rem;
-            width: 50rem;
+            width: 57rem;
             height: 20rem;
         }
         .svg-container {
@@ -237,7 +237,7 @@
             if ((isNaN(intVal) && val !== "") || intVal < 0) {
                 errorDiv.innerHTML = "Please enter a valid integer for Z_n"
                 errorDiv.style.display = "unset"
-            } else if ((!isNaN(intPhiVal) && (intPhiVal > intVal || intPhiVal < 0)) || isNaN(intPhiVal)) {
+            } else if ((!isNaN(intPhiVal) && (intPhiVal > intVal || intPhiVal < 0)) || (isNaN(intPhiVal) && phiVal !== "")) {
                 errorDiv.innerHTML = "Please enter a valid homomorphism"
                 errorDiv.style.display = "unset"
             } else {
