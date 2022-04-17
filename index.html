@@ -133,6 +133,7 @@
                 \(\mathbb{Z}\)_ <input class="form-control form-control-small" id="n-input">
                 <div class="pe-5" style="display: inline"></div>
                 \(\phi(1) = \) <input class="form-control form-control-small" id="phi-n-input">
+                <div class="ms-5 alert alert-danger" style="display: none" id="validation-error-message"></div>
             </div>
             <div class="svg-container">
                 <div class="p-5"></div>
@@ -229,6 +230,21 @@
             let val = nInput.value;
             let phiVal = phiInput.value;
 
+            let intVal = parseInt(val);
+            let intPhiVal = parseInt(phiVal);
+            let errorDiv = document.getElementById("validation-error-message")
+
+            if ((isNaN(intVal) && val !== "") || intVal < 0) {
+                errorDiv.innerHTML = "Please enter a valid integer for Z_n"
+                errorDiv.style.display = "unset"
+            } else if ((!isNaN(intPhiVal) && (intPhiVal > intVal || intPhiVal < 0)) || isNaN(intPhiVal)) {
+                errorDiv.innerHTML = "Please enter a valid homomorphism"
+                errorDiv.style.display = "unset"
+            } else {
+                document.getElementById("validation-error-message").innerHTML = ""
+                errorDiv.style.display = "none"
+            }
+
             if (val == "") {
                 val = "n"
             }
@@ -237,8 +253,7 @@
             bottomLeft.innerHTML = `\\(\\frac{\\mathbb{Z}_{${val}}}{\\text{ker}\\phi}\\)`
             bottomRight.innerHTML = `\\(\\phi({\\mathbb{Z}_{${val}}})\\)`
 
-            let intVal = parseInt(val);
-            let intPhiVal = parseInt(phiVal);
+
 
             if (!isNaN(intVal) && !isNaN(intPhiVal)) {
 
@@ -261,6 +276,7 @@
                 })
                 let cosetStr = ""
                 cosets.forEach(x => cosetStr += "{" + x.join() + "}, ")
+                cosetStr = cosetStr.substring(0, cosetStr.length - 2);
 
                 let phiZn = G.map(g => (g * intPhiVal) % intVal);
                 // filter out duplicates
