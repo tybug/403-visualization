@@ -229,10 +229,6 @@
             refresh();
         });
 
-        function randomColor(n) {
-            return "hsl(" + ((n * 67) % 360) + ",100%,30%)";
-        }
-
         function refresh() {
             var val = nInput.value;
             var phiVal = phiInput.value;
@@ -289,10 +285,8 @@
                         }
                     });
                     var cosetStr = "";
-                    let n = 0;
                     cosets.forEach(function (x) {
-                        n = n + 1;
-                        return cosetStr += `<span style="color: ${randomColor(n)}">{${x.join()}}</span>, `;
+                        return cosetStr += "{" + x.join() + "}, ";
                     });
                     cosetStr = cosetStr.substring(0, cosetStr.length - 2);
 
